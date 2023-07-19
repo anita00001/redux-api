@@ -20,10 +20,11 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      const newBookItem = action.payload;
-      state.push(newBookItem);
+      const newUser = action.payload;
+      state.push(newUser);
     },
   },
+  extraReducers: {},
 });
 
 export const { addUser } = usersSlice.actions;
