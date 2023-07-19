@@ -71,4 +71,8 @@
 
 > 16. Install redux toolkit
       (npm install react-redux @reduxjs/toolkit)
-
+      (npm install @reduxjs/toolkit react-redux)
+> 17. create a directory called /src/redux to hold all redux logics
+> 18. create a new Redux store at:
+        /src/redux/store.js 
+> 19. 
