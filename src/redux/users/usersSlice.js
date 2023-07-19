@@ -1,22 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    users: [],
+const initialState = [
+  {
+    id: 1,
+    name: 'Anita Sharma',
     isLoading: false,
     error: undefined,
-}
+  },
+  {
+    id: 2,
+    name: 'Rajendra Upadhyay',
+    isLoading: false,
+    error: undefined,
+  },
+];
 
 const usersSlice = createSlice({
-    name: 'users',
-    initialState,
-    reducers: {
-        getUsers: (state) => {
-            state.isLoading = true;
-        }
+  name: 'users',
+  initialState,
+  reducers: {
+    addUser: (state, action) => {
+      const newBookItem = action.payload;
+      state.push(newBookItem);
     },
-    extraReducers: {},
+  },
 });
 
-export const { getUsers } = usersSlice.actions;
+export const { addUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

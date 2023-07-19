@@ -1,10 +1,11 @@
 import '../styles/App.css';
+import DisplayUser from './DisplayUser';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello, World!</h1>
+        <DisplayUser />
       </header>
     </div>
   );

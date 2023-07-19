@@ -74,5 +74,66 @@
       (npm install @reduxjs/toolkit react-redux)
 > 17. create a directory called /src/redux to hold all redux logics
 > 18. create a new Redux store at:
-        /src/redux/store.js 
-> 19. 
+        /src/redux/store.js
+
+> 19. Create an empty Redux store: In /src/redux/store.js:
+```
+import { configureStore } from '@reduxjs/toolkit'
+
+const store = configureStore({
+  reducer: {},
+})
+
+export default store;
+```
+
+> 20. Provide the redux store to react:
+      In src/index.js :
+```
+      import React from 'react';
+      import ReactDOM from 'react-dom/client';
+      import './styles/index.css';
+      import App from './components/App';
+      import { store } from './redux/store';
+      import { Provider } from 'react-redux';
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(
+      <React.StrictMode>
+            <Provider store={store}>
+                  <App />
+            </Provider>
+      </React.StrictMode>
+      );
+```
+
+> 21. Create a redux state slice:
+      - Add a new directory: /src/redux/users
+      - Add a new file: /src/redux/users/usersSlice.js
+      - In file /src/redux/users/usersSlice.js :
+```
+      import { createSlice } from "@reduxjs/toolkit";
+
+      const initialState = {
+            users: [],
+            isLoading: false,
+            error: undefined,
+      }
+
+      const usersSlice = createSlice({
+            name: 'users',
+            initialState,
+            reducers: {
+                  getUsers: (state) => {
+                        state.isLoading = true;
+                  }
+            },
+            extraReducers: {},
+      });
+
+      export const { getUsers } = usersSlice.actions;
+
+      export default usersSlice.reducer;
+```
+
+> 22. 
