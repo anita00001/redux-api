@@ -112,28 +112,91 @@ export default store;
       - Add a new file: /src/redux/users/usersSlice.js
       - In file /src/redux/users/usersSlice.js :
 ```
-      import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-      const initialState = {
-            users: [],
-            isLoading: false,
-            error: undefined,
-      }
+const initialState = [
+  {
+    id: 1,
+    name: 'Anita Sharma',
+    isLoading: false,
+    error: undefined,
+  },
+  {
+    id: 2,
+    name: 'Rajendra Upadhyay',
+    isLoading: false,
+    error: undefined,
+  },
+];
 
-      const usersSlice = createSlice({
-            name: 'users',
-            initialState,
-            reducers: {
-                  getUsers: (state) => {
-                        state.isLoading = true;
-                  }
-            },
-            extraReducers: {},
-      });
+const usersSlice = createSlice({
+  name: 'users',
+  initialState,
+  reducers: {
+    addUser: (state, action) => {
+      const newUser = action.payload;
+      state.push(newUser);
+    },
+  },
+  extraReducers: {},
+});
 
-      export const { getUsers } = usersSlice.actions;
+export const { addUser } = usersSlice.actions;
 
-      export default usersSlice.reducer;
+export default usersSlice.reducer;
 ```
 
-> 22. 
+> 22. Create a new component that will contain your fetched users:
+     - Import useSelector and destructure your users, isLoading and error from your users state
+     - Add a loading state; JSX content that shows when isLoading is true
+     - Add an error state; JSX content that shows when error has received new content
+     - Add a default state that maps over your users inside of an unordered list:
+     - Add a key to the container element.
+     - Render the first and last name of the user
+```
+import { useSelector } from 'react-redux';
+
+const DisplayUser = () => {
+  const userList = useSelector((state) => state.users);
+
+  userList.map((person) => (person.isLoading === true) ? <p>Loading...</p> : null);
+
+  userList.map((person) => (person.error === true) ? <p>Error...</p> : null);
+
+  return (
+    <div>
+      {userList.map((person) => (
+        <ul
+          key={person.id}
+        >
+          <li>First Name:{'  '}{person.name.split(' ').slice(0, 1)}</li>
+          <li>Last Name:{'  '}{person.name.split(' ').slice(1)}</li>
+        </ul>
+      ))}
+    </div>
+  );
+};
+
+export default DisplayUser;
+```
+
+> 23. Import DisplayUser in App.js
+```
+import '../styles/App.css';
+import DisplayUser from './DisplayUser';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <DisplayUser />
+      </header>
+    </div>
+  );
+}
+
+export default App;
+```
+
+**Redux API**
+> 24. 
